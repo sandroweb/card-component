@@ -1,0 +1,27 @@
+.Button {
+  box-sizing: border-box;
+  background-color: #FFF;
+  border-color: #3B5CB8;
+  border-width: 1px;
+  border-style: solid;
+  padding: 6px 12px;
+  border-radius: 16px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.Button:disabled {
+  border-color: #CCC;
+  cursor: default;
+}
+
+.Button-label {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #3B5CB8;
+}
+
+
+.Button:disabled .Button-label {
+  color: #CCC;
+}
