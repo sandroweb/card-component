@@ -1,27 +1,27 @@
 import { FunctionComponent } from "react";
 import NumberFormat from "react-number-format";
 
-export interface CurrencyProps {
-  currency: number;
+export interface PercentProps {
+  percent: number;
   className?: string;
 }
 
-const Currency: FunctionComponent<CurrencyProps> = ({
-  currency,
+const Percent: FunctionComponent<PercentProps> = ({
+  percent,
   className,
 }) => {
   return (
     <NumberFormat
-      value={currency}
+      value={percent}
       fixedDecimalScale
       className={className}
       displayType="text"
       thousandSeparator="."
       decimalSeparator=","
       decimalScale={2}
-      prefix="R$ "
+      renderText={value => `${value}%`}
     />
   )
 }
 
-export default Currency;
+export default Percent;

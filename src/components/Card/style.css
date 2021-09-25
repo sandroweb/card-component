@@ -27,11 +27,16 @@
   margin-right: -10px;
   fill: #9aa3bc;
   cursor: pointer;
+  transition: fill ease 0.3s;
+}
+
+.CardHeader-optionButton:hover {
+  fill: #3B5CB8;
 }
 
 .CardContent {
   flex: 1;
-  margin: 30px 0 30px 0;
+  margin: 30px 0 10px 0;
 }
 
 .CardFooter {
@@ -39,6 +44,7 @@
   display: flex;
   justify-content: flex-end;
   padding-top: 18px;
+  margin-top: 20px;
 }
 
 .CardFooter:before {

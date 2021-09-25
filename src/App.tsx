@@ -1,5 +1,9 @@
 import Currency from 'components/Currency';
-import React from 'react';
+import Percent from 'components/Percent';
+import Preloader from 'components/Preloader';
+import IResumeItem from 'interfaces/IResumeItem';
+import React, { useCallback, useEffect, useState } from 'react';
+import { wealthSummaryServiceLoadAll } from 'services/WealthSummaryService';
 import './App.css';
 import Card from './components/Card';
 import Grid from './components/Grid';
@@ -7,72 +11,65 @@ import MultilineValue from './components/MultilineValue';
 import SingleLineValue from './components/SingleLineValue';
 
 function App() {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [result, setResult] = useState<IResumeItem[]>([]);
+  const [initialized, setInitialized] = useState<boolean>(false);
+
+  const loadCards = useCallback(() => {
+    wealthSummaryServiceLoadAll(
+      setLoading,
+      response => setResult(response.wealthSummary),
+      errors => console.log(errors)
+    )
+  }, [setResult, setLoading])
+
+  useEffect(() => {
+    if (!initialized) {
+      setInitialized(true);
+      loadCards();
+    }
+  }, [initialized, setInitialized, loadCards])
+
   return (
     <div className="App">
-      <Grid container>
-        <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Card title="Card 1" optionsCallback={() => {}}>
-            Opa
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Card action={{label: 'Abrir', callback: () => {}}}>
-            Opa
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Card title="Seu resumo" optionsCallback={() => {}} action={{label: 'Disabled', callback: () => {}, disabled: true}}>
-            <MultilineValue label="Valor investido">
-              <Currency currency={3424234} />
-            </MultilineValue>
-            <SingleLineValue label="Rentabilidade/mês">
-              2,767%
-            </SingleLineValue>
-            <SingleLineValue label="CDI">
-              3,45%
-            </SingleLineValue>
-            <SingleLineValue label="Ganho/mês">
-              <Currency currency={1833.23} />
-            </SingleLineValue>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Card title="Seu resumo" optionsCallback={() => {}} action={{label: 'Ver mais', callback: () => {}}}>
-            <MultilineValue label="Valor investido">
-              <Currency currency={3424234} />
-            </MultilineValue>
-            <SingleLineValue label="Rentabilidade/mês">
-              2,767%
-            </SingleLineValue>
-            <SingleLineValue label="CDI">
-              3,45%
-            </SingleLineValue>
-            <SingleLineValue label="Ganho/mês">
-              <Currency currency={1833.23} />
-            </SingleLineValue>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Card>
-            Opa
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Card>
-            Opa
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Card>
-            Opa
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Card>
-            Opa
-          </Card>
-        </Grid>
-      </Grid>
+      <Preloader label="Carregando ..." hidden={!loading} />
+      {
+        !loading && result.length > 0 && (
+          <Grid container>
+            {
+              result.map(
+                (it, key) => (
+                  <Grid xs={12} sm={6} md={4} lg={3} xl={2} key={key}>
+                    <Card
+                      title="Seu resumo"
+                      optionsCallback={() => alert(`id ${it.id}`)}
+                      action={
+                        it.hasHistory ? {
+                          label: 'Ver mais',
+                          callback: () => alert(`id ${it.id}`),
+                        } : undefined
+                      }
+                    >
+                      <MultilineValue label="Valor investido">
+                        <Currency currency={it.total} />
+                      </MultilineValue>
+                      <SingleLineValue label="Rentabilidade/mês">
+                        <Percent percent={it.profitability} />
+                      </SingleLineValue>
+                      <SingleLineValue label="CDI">
+                        <Percent percent={it.cdi} />
+                      </SingleLineValue>
+                      <SingleLineValue label="Ganho/mês">
+                        <Currency currency={it.gain} />
+                      </SingleLineValue>
+                    </Card>
+                  </Grid>
+                )
+              )
+            }
+          </Grid>
+        )
+      }
     </div>
   );
 }

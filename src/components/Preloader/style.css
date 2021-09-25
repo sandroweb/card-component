@@ -1,0 +1,47 @@
+@keyframes ball-jump{
+  0%  {height: 15px;}
+  20% {height: 20px;}
+  50% {transform: translateX(-50%) translateY(-200%); border-radius: 50%;}
+  95% {height: 20px;}
+  100%{height: 15px;}
+}
+
+.Preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(59, 92, 184, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  transition: top 0.4s ease-in-out;
+}
+
+.Preloader-hidden {
+  top: -100vh;
+}
+
+.Preloader-content {
+  position: relative;
+}
+
+.Preloader-ball {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #FFF;
+  border-radius: 100%;
+  animation: 1s 1s ball-jump infinite ease-in-out;
+}
+
+.Preloader-label {
+  color: #FFF;
+  font-size: 24px;
+  text-transform: capitalize;
+}
