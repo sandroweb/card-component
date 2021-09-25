@@ -1,8 +1,8 @@
-import React, { CSSProperties, Fragment } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import SingleLineValue from './';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import React from 'react';
 import Currency from '../Currency';
+import SingleLineValue from './';
+
 
 export default {
   title: 'SingleLineValue',

@@ -1,8 +1,8 @@
-import React, { CSSProperties, Fragment } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import MultilineValue from './';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import React from 'react';
 import Currency from '../Currency';
+import MultilineValue from './';
+
 
 export default {
   title: 'MultilineValue',
