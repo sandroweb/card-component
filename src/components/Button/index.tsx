@@ -14,7 +14,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 }) => {
   return (
     <button className="Button" onClick={onClick && (() => onClick())} disabled={disabled}>
-      <span className="Button-label">
+      <span className="Button-label text-bold">
         { children }
       </span>
     </button>

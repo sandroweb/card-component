@@ -1,0 +1,22 @@
+.SingleLineValue {
+  display: flex;
+  justify-content: space-between;
+}
+
+.SingleLineValue-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #606377;
+  font-size: 16px;
+}
+
+.SingleLineValue-children {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  white-space: nowrap;
+  padding-left: 5px;
+  color: #3B5CB8;
+  font-size: 18px;
+}

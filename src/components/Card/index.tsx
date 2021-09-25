@@ -1,6 +1,6 @@
-import React, { Fragment, FunctionComponent, ReactNode, useMemo } from 'react';
-import MoreIcon from './../icons/MoreIcon';
+import React, { FunctionComponent, ReactNode, useMemo } from 'react';
 import Button from './../Button';
+import MoreIcon from './../icons/MoreIcon';
 import './style.css';
 
 export interface CardAction {
@@ -19,7 +19,7 @@ export const CardHeader: FunctionComponent<CardHeaderProps> = ({
   optionsCallback,
 }) => {
   return (
-    <Fragment>
+    <div className="CardHeader">
       {
         title && (
           <h3 className="CardHeader-title text-extra-bold">{title}</h3>
@@ -27,12 +27,12 @@ export const CardHeader: FunctionComponent<CardHeaderProps> = ({
       }
       {
         optionsCallback && (
-          <button>
+          <button className="CardHeader-optionButton" onClick={() => optionsCallback()}>
             <MoreIcon />
           </button>
         )
       }
-    </Fragment>
+    </div>
   )
 }
 
